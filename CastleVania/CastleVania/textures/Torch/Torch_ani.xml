@@ -1,0 +1,6 @@
+<Animations name="Torch">
+    <Animation ID="torch_ani" defaultTime="100">
+        <frame spriteID="Candle_1" time="100"/>
+        <frame spriteID="Candle_2" time="100"/>
+    </Animation>
+</Animations>

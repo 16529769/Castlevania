@@ -1,0 +1,5 @@
+<Animations name="brick">
+    <Animation ID="brick_idle" defaultTime="100">
+        <frame spriteID="brick1" />
+    </Animation>
+</Animations>

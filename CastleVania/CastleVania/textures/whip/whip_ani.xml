@@ -1,0 +1,10 @@
+<Animations name="whip">
+    <Animation ID="whip_lv1" defaultTime="100">
+        <frame spriteID="WHIP_1" time="100"/>
+        <frame spriteID="WHIP_2" time="100"/>
+        <frame spriteID="WHIP_3" time="100"/>
+        <frame spriteID="WHIP_3" time="100"/>
+    
+    </Animation>
+
+</Animations>

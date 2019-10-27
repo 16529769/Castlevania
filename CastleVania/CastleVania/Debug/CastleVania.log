@@ -1,0 +1,4 @@
+﻿  Simon.cpp
+d:\tailieu\game-cast (2)\game-cast\castlevania\castlevania\simon.h(67): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
+d:\tailieu\game-cast (2)\game-cast\castlevania\castlevania\simon.h(68): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
+  CastleVania.vcxproj -> D:\tailieu\Game-Cast (2)\Game-Cast\CastleVania\Debug\CastleVania.exe
