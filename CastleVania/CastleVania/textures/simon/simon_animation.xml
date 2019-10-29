@@ -1,27 +1,36 @@
 <Animations name="simon">
     <Animation ID="simon_ani_idle" defaultTime="100">
-        <frame spriteID="simon_1" />
+        <frame spriteID="Simon_1" />
     </Animation>
 
     <Animation ID="simon_ani_walking" defaultTime="100">
-        <frame spriteID="simon_1" />
-        <frame spriteID="simon_2" />
-        <frame spriteID="simon_3" />
-        <frame spriteID="simon_4" />
+        <frame spriteID="Simon_1" />
+        <frame spriteID="Simon_2" />
+        <frame spriteID="Simon_3" />
+        <frame spriteID="Simon_4" />
     </Animation>
 
     <Animation ID="simon_ani_sitting" defaultTime="100">
-        <frame spriteID="simon_5" />
+        <frame spriteID="Simon_5" />
     </Animation>
 
     <Animation ID="simon_ani_jumping" defaultTime="100">
-        <frame spriteID="simon_5" />
+        <frame spriteID="Simon_5" />
     </Animation>
     <Animation ID="simon_ani_attacking" defaultTime="100">
-        <frame spriteID="simon_6" />
-        <frame spriteID="simon_7" />
-        <frame spriteID="simon_8" />
-        <frame spriteID="simon_8" />
-
+        <frame spriteID="Simon_6" />
+        <frame spriteID="Simon_7" />
+        <frame spriteID="Simon_8" />
+        <frame spriteID="Simon_8" />
     </Animation>
+
+    <Animation ID="simon_ani_sitattack" defaultTime="100">
+        <frame spriteID="Simon_16" />
+        <frame spriteID="Simon_17" />
+        <frame spriteID="Simon_18" />
+         <frame spriteID="Simon_18" />
+    </Animation>
+
+    
+
 </Animations>

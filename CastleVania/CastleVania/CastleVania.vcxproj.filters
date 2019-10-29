@@ -57,6 +57,9 @@
     <ClCompile Include="Torch.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
+    <ClCompile Include="ItemHeart.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -90,6 +93,9 @@
       <Filter>Objects</Filter>
     </ClInclude>
     <ClInclude Include="Torch.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemHeart.h">
       <Filter>Objects</Filter>
     </ClInclude>
   </ItemGroup>

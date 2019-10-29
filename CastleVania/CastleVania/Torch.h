@@ -9,6 +9,7 @@ class Torch:public GameObject
 {
 	string ani;
 public:
+	Torch(){ this->state = TORCH; }
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> &coObjects);
 	virtual void Render();
 	virtual void GetBoundingBox(float &l, float &r, float &t, float &b);

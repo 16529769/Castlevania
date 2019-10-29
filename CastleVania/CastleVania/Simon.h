@@ -16,12 +16,16 @@
 #define SIMON_STATE_DIE				400
 #define SIMON_STATE_SIT				500
 #define SIMON_STATE_ATTACK          600
+#define SIMON_STATE_SITATTACK		700
+//#define SIMON_STATE_JUMPATTACK      800
 
 #define SIMON_ANI_IDLE_RIGHT		0
 #define SIMON_ANI_IDLE_LEFT			1
 #define SIMON_ANI_WALKING_RIGHT		2
 #define SIMON_ANI_WALKING_LEFT		3
 #define SIMON_ANI_ATTACK			4
+#define SIMON_ANI_SITATTACK			5
+//#define SIMON_ANI_JUMPATTACK        6
 
 #define SIMON_ANI_DIE				8
 
@@ -37,10 +41,12 @@ class Simon : public GameObject
 {
 	int level;
 	int untouchable;
-	bool isJumping;
+
+	bool isJumping = false;
 	bool isSitting;
 	bool isAttacking;
 	bool isComplete;
+
 	DWORD untouchable_start;
 
 	bool start = false;
@@ -52,9 +58,11 @@ public:
 	Whip *whip;
 	Simon() : GameObject()
 	{
+		nx = 1;
 		untouchable = 0;
 		whip = new Whip();
 		whip->AddAnimation("whip_lv1");
+		
 	}
 	bool isTouchGround;
 
@@ -67,9 +75,14 @@ public:
 	int GetY() { return y; }
 	int GetVy() { return vy; }
 
-	bool IsJumping() { return isJumping; }
+	bool IsJumping() { return (state==SIMON_STATE_JUMP && isJumping ); }
 	bool IsSitting() { return isSitting; }
+
+	//danh
 	bool IsAttacking() { return (state == SIMON_STATE_ATTACK && !this->isComplete); }
+	bool IsSitAttacking() { return (state == SIMON_STATE_SITATTACK && !this->isComplete); }
+	//bool IsJumpAttacking() { return (state == SIMON_STATE_JUMPATTACK && !this->isComplete); }
+
 
 	void Sit() { isSitting = true; }
 	void reset();

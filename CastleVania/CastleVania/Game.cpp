@@ -214,6 +214,15 @@ void Game::SweptAABB(
 
 }
 
+bool Game::AABB(float ml, float mt, float mr, float mb, float sl, float st, float sr, float sb)
+{
+	float left = sl - mr;
+	float top = sb - mt;
+	float right = sr - ml;
+	float bottom = st - mb;
+	return !(left > 0 || right < 0 || top < 0 || bottom > 0);
+
+}
 Game *Game::GetInstance()
 {
 	if (__instance == NULL) __instance = new Game();

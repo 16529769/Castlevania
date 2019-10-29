@@ -5,15 +5,17 @@
 
 void Torch::Update(DWORD dt, vector<LPGAMEOBJECT>& coObjects)
 {
-
+	
 }
 
 void Torch::Render()
 {
-	
+	if (state == TORCH)
+	{
 		ani = "torch_ani";
 		animations[ani]->Render(x, y);
 		RenderBoundingBox();
+	}
 	
 }
 

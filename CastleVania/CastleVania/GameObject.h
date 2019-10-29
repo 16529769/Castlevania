@@ -50,6 +50,10 @@ public:
 
 	int state;
 
+	bool die = false;
+
+	string id;
+
 	DWORD dt;
 
 	unordered_map<string,LPANIMATION> animations;
@@ -65,6 +69,9 @@ public:
 	int GetState() { return this->state; }
 
 	void RenderBoundingBox();
+
+	//va cham hai vat dung yen 
+	bool AABBx(LPGAMEOBJECT coO);
 
 	LPCOLLISIONEVENT SweptAABBEx(LPGAMEOBJECT coO);
 	void CalcPotentialCollisions(vector<LPGAMEOBJECT> *coObjects, vector<LPCOLLISIONEVENT> &coEvents);
@@ -85,6 +92,8 @@ public:
 	virtual void Render() = 0;
 	virtual void SetState(int state) { this->state = state; }
 
+	void SetDie(bool a) { this->die = a; }
+	bool GetDie() { return this->die; }
 
 	~GameObject();
 };

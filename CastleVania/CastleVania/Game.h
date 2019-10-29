@@ -34,17 +34,25 @@ public:
 	static void SweptAABB(
 		float ml,			// move left 
 		float mt,			// move top
-		float mr,			// move right 
-		float mb,			// move bottom
+		float mw,			// move width
+		float mh,			// move height 
 		float dx,			// 
 		float dy,			// 
 		float sl,			// static left
 		float st,
-		float sr,
-		float sb,
+		float sw,
+		float sh,
 		float &t,
 		float &nx,
 		float &ny);
+	static bool AABB(float ml,
+		float mt,
+		float mr,
+		float mb,
+		float sl,
+		float st,
+		float sr,
+		float sb);
 
 	LPDIRECT3DDEVICE9 GetDirect3DDevice() { return this->d3ddv; }
 	LPDIRECT3DSURFACE9 GetBackBuffer() { return backBuffer; }

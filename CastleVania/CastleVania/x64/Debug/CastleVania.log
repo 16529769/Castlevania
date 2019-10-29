@@ -1,0 +1,8 @@
+﻿  main.cpp
+c:\users\administrator\desktop\new folder (2)\castlevania\castlevania\castlevania\simon.h(75): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
+c:\users\administrator\desktop\new folder (2)\castlevania\castlevania\castlevania\simon.h(76): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
+  c:\program files (x86)\microsoft directx sdk (june 2010)\include\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+c:\users\administrator\desktop\new folder (2)\castlevania\castlevania\castlevania\main.cpp(123): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\administrator\desktop\new folder (2)\castlevania\castlevania\castlevania\main.cpp(131): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\administrator\desktop\new folder (2)\castlevania\castlevania\castlevania\main.cpp(235): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  CastleVania.vcxproj -> C:\Users\Administrator\Desktop\New folder (2)\Castlevania\CastleVania\x64\Debug\CastleVania.exe

@@ -24,27 +24,6 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 
-	//if(state == SIMON_STATE_ATTACK)
-	//	if (start == false)
-	//	{
-	//		start = true;
-	//		startTime += GetTickCount();
-	//	}
-	//	else
-	//	{
-	//		float remain = GetTickCount() - startTime;
-
-	//		if (remain > 350)
-	//		{
-	//			start = false;
-	//			remain = 0;
-	//			startTime = 0;
-	//			reset();
-	//			whip->reset();
-	//			SetState(SIMON_STATE_IDLE);
-	//		}
-	//	}
-
 	coEvents.clear();
 
 	// turn off collision when die 
@@ -72,12 +51,7 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 		
 
-		/*if (nx != 0) vx = 0;
-		if (ny != 0) vy = 0;*/
-
-		//block moi va cham 
-		//x += min_tx * dx + nx * 0.4f;
-		//y += min_ty * dy + ny * 0.4f;
+		
 
 		// Collision logic with Goombas
 		for (UINT i = 0; i < coEventsResult.size(); i++)
@@ -85,16 +59,24 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			LPCOLLISIONEVENT e = coEventsResult[i];
 			if (dynamic_cast<Brick *>(e->obj))
 			{
-				isTouchGround = true;
-				// block 
-				x += dx;
-				if (e->ny != 0)
-				{
-					if (e->ny == -1.0f)
-						vy = 0;
-					else
-						y += dy;
-				}
+				isJumping = false;
+				//// block 
+				//x += dx;
+				//if (e->ny != 0)
+				//{
+				//	if (e->ny == -1.0f)
+				//		vy = 0;
+				//	else
+				//		y += dy;
+				//}
+				if (nx != 0) vx = 0;
+				if (ny != 0) vy = 0;
+
+
+				x += min_tx * dx + nx * 0.4f;
+				y += min_ty * dy + ny * 0.4f;
+
+				
 			}
 			else if (dynamic_cast<Torch *>(e->obj))
 			{	
@@ -102,18 +84,14 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					x += dx;
 				if (e->ny != 0)
 				{
-					if (e->ny == -1.0f && isTouchGround == false)
+					if (e->ny == -1.0f )
 						y += dy;
 					else
 						vy = 0;
 				}			
 			}
 
-			//va cham roi va nen 
-			if (dynamic_cast<Torch *>(e->obj))
-			{
-
-			}
+			
 		}
 	}
 
@@ -126,7 +104,7 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 void Simon::Render()
 {
 
-	if (state == SIMON_STATE_DIE)
+	 if (state == SIMON_STATE_DIE)
 		ani = "simon_ani_idle";
 	else if (state == SIMON_STATE_SIT)
 	{
@@ -139,9 +117,28 @@ void Simon::Render()
 	else if (state == SIMON_STATE_ATTACK)
 	{
 		ani = "simon_ani_attacking";
+		this->whip->SetState(1);
 	}
+	else if (state == SIMON_STATE_SITATTACK)
+	{
+		ani = "simon_ani_sitattack";
+		this->whip->SetState(1);
+	}
+	else if (state == SIMON_STATE_WALKING_RIGHT || state == SIMON_STATE_WALKING_LEFT)
+	 {
+		 ani = "simon_ani_walking";
+	 }
+	else if (state == SIMON_STATE_IDLE)
+	 {
+		 ani = "simon_ani_idle";
+	 }
+	/*else if (state == SIMON_STATE_JUMPATTACK)
+	{
+		ani = "simon_ani_jumpattack";
+		this->whip->SetState(1);
+	}*/
 
-	else
+	/*else
 		if (vx == 0)
 		{
 			if (nx > 0) ani = "simon_ani_idle";
@@ -156,23 +153,39 @@ void Simon::Render()
 		{
 			ani = "simon_ani_walking";
 			nx = -1;
-		}
+		}*/
 
 
 	int alpha = 255;
 	if (untouchable) alpha = 128;
+
 	if (IsAttacking())
 	{
 		whip->Setnx(this->nx);
 		whip->SetPosition(this->x - 90, this->y + 1);
 		whip->Render();
 	}
+
+	if(IsSitAttacking())
+	{
+		whip->Setnx(this->nx);
+		whip->SetPosition(this->x - 90, this->y + 15);
+		whip->Render();
+	}
+
+
+	/*if (IsJumpAttacking())
+	{
+		whip->Setnx(this->nx);
+		whip->SetPosition(this->x - 90, this->y + 15);
+		whip->Render();
+	}*/
+
+
 	animations[ani]->Render(nx, x, y, alpha);
-	
+
 	this->isComplete = animations[ani]->GetComplete();
-
-	//whip
-
+	this->whip->SetBox(isComplete);
 	RenderBoundingBox();
 }
 
@@ -184,44 +197,48 @@ void Simon::SetState(int state)
 	{
 	case SIMON_STATE_WALKING_RIGHT:
 		isSitting = false;
-		//whip->SetState(2);
 		vx = SIMON_WALKING_SPEED;
 		nx = 1;
 		break;
-	case SIMON_STATE_WALKING_LEFT:
-		//whip->SetState(2);
+	case SIMON_STATE_WALKING_LEFT:	
 		isSitting = false;
 		vx = -SIMON_WALKING_SPEED;
 		nx = -1;
 		break;
 	case SIMON_STATE_JUMP:
-		//whip->SetState(2);
-
 		vy = -SIMON_JUMP_SPEED_Y;
 		isSitting = false;
 		isJumping = true;
-		isTouchGround = false;
+		isAttacking = false;
 		break;
-	case SIMON_STATE_SIT:
-		//whip->SetState(2);
+	case SIMON_STATE_SIT:	
 		isSitting = true;
-		isTouchGround = true;
 		break;
-	case SIMON_STATE_IDLE:
-		//whip->SetState(2);
+	case SIMON_STATE_IDLE:	
 		isSitting = false;
+		isJumping = false;
 		vx = 0;
 		break;
 	case SIMON_STATE_DIE:
-		vy = -SIMON_DIE_DEFLECT_SPEED;
-		//whip->SetState(2);
+		vy = -SIMON_DIE_DEFLECT_SPEED;	
 		break;
 	
-	case SIMON_STATE_ATTACK:
-		//whip->SetState(1);
+	case SIMON_STATE_ATTACK:	
+		vx = 0;
+		isAttacking = false;
+		break;
+
+	case SIMON_STATE_SITATTACK:
+		//isAttacking = true;
 		vx = 0;
 		break;
+
+	//case SIMON_STATE_JUMPATTACK:
+	//	//vy = -SIMON_JUMP_SPEED_Y;
+	//	vx = 0;
+	//	break;
 	}
+	
 	
 }
 
