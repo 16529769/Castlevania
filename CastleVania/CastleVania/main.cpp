@@ -11,13 +11,13 @@
 #include "TileMap.h"
 #include "Whip.h"
 #include "Torch.h"
-#include "ItemHeart.h"
+#include "Items.h"
 
 
 #define WINDOW_CLASS_NAME L"SampleWindow"
 #define MAIN_WINDOW_TITLE L"04 - Collision"
 
-#define BACKGROUND_COLOR D3DCOLOR_XRGB(0, 255, 200)
+#define BACKGROUND_COLOR D3DCOLOR_XRGB(0, 0, 0)
 #define SCREEN_WIDTH 640
 #define SCREEN_HEIGHT 480
 
@@ -30,7 +30,7 @@ Simon *simon;
 TileMap * tilemap;
 //Whip * whip;
 vector<LPGAMEOBJECT> objects;
-
+vector<LPGAMEOBJECT> items;
 
 LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -57,11 +57,11 @@ void LoadResources()
 	Textures * textures = Textures::GetInstance();
 	textures->Add(200, L"textures\\simon\\simon.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(300, L"textures\\ground\\brick.png", D3DCOLOR_XRGB(255, 0, 255));
-	textures->Add(400, L"textures\\Map\\hello1.png", D3DCOLOR_XRGB(255, 0, 255));
+	textures->Add(400, L"textures\\Map\\Scene1.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(500, L"textures\\whip\\whip.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(600, L"textures\\Torch\\Torch.png", D3DCOLOR_XRGB(255, 0, 255));
 	textures->Add(100, L"textures\\red.png", D3DCOLOR_XRGB(255, 0, 255));
-	//textures->Add(700, L"textures\\Item\\itemheart.png", D3DCOLOR_XRGB(255, 0, 255));
+	textures->Add(700, L"textures\\item\\items.png", D3DCOLOR_XRGB(255, 0, 255));
 
 
 
@@ -71,7 +71,7 @@ void LoadResources()
 	Animations * animations = Animations::GetInstance();
 
 	auto texMap = textures->Get(400);
-	tilemap = new TileMap(L"textures\\Map\\mapcut2.txt", 1536, 384, 32, 32);
+	tilemap = new TileMap(L"textures\\Map\\Scene1_map.txt", 1536, 384, 32, 32);
 	tilemap->SetTileMap(texMap);
 	tilemap->LoadResources();
 
@@ -91,8 +91,8 @@ void LoadResources()
 	auto texTorch = textures->Get(600);
 	sprites->LoadSpriteSheet("textures\\Torch\\Torch.xml", texTorch);
 
-	//auto texHeart = textures->Get(700);
-	//sprites->LoadSpriteSheet("textures\\Item\\itemheart.xml", texHeart);
+	auto texItem = textures->Get(700);
+	sprites->LoadSpriteSheet("textures\\item\\items.xml", texItem);
 	
 	
 
@@ -100,8 +100,7 @@ void LoadResources()
 	animations->LoadListAnimations("textures\\simon\\simon_animation.xml");
 	animations->LoadListAnimations("textures\\ground\\brick_animation.xml");
 	animations->LoadListAnimations("textures\\whip\\whip_ani.xml");
-	//animations->LoadListAnimations("textures\\Item\\itemheart.xml");
-
+	animations->LoadListAnimations("textures\\item\\items_ani.xml");
 
 	simon = new Simon();
 	simon->AddAnimation("simon_ani_idle");		// idle
@@ -110,6 +109,7 @@ void LoadResources()
 	simon->AddAnimation("simon_ani_jumping");  // jumping
 	simon->AddAnimation("simon_ani_attacking"); //attack
 	simon->AddAnimation("simon_ani_sitattack"); //sit attack
+	simon->AddAnimation("simon_ani_effect"); //nhap nhay 
 
 	simon->SetState(SIMON_STATE_IDLE);
 	simon->SetPosition(0, 0);
@@ -120,7 +120,7 @@ void LoadResources()
 	{
 		Brick *brick = new Brick();
 		brick->AddAnimation("brick_idle");
-		brick->SetPosition(i * 32, 320.0f);
+		brick->SetPosition(i * 32, 340.0f);
 		objects.push_back(brick);
 	}
 
@@ -128,17 +128,20 @@ void LoadResources()
 	{
 		Torch *torch = new Torch();
 		torch->AddAnimation("torch_ani");
-		torch->SetPosition(300 + i*200, 320 - 64);
+		torch->SetPosition(100 + i*200, 340 - 64);
 		objects.push_back(torch);
 	}
-
-	//ItemHeart *itemheart = new ItemHeart();
 	
 }
 
 
 
 void Control() {
+	
+	if (simon->isDead)
+	{
+		return;
+	}
 	if (simon->IsAttacking())
 	{
 		return;
@@ -147,52 +150,49 @@ void Control() {
 	{
 		return;
 	}
-	/*if (simon->IsJumpAttacking())
+	
+	
+	if (simon->IsEffectItem())
 	{
-		return;
-	}*/
-	
-	
-	if (simon->isDead )
-	 {
 		return;
 	}
 
+	
 	if (IsKeyPress(DIK_E)) {
-
-		//simon->SetState(SIMON_STATE_ATTACK);
 		if (simon->GetState() == SIMON_STATE_SIT)
 		{
 			simon->SetState(SIMON_STATE_SITATTACK);
 		}
-
 		else
 		{
 			simon->SetState(SIMON_STATE_ATTACK);
 		}
 	}
+	
 	else if (simon->IsJumping())
 	{
 		return;
 	}
-
+	
 	else if (IsKeyPress(DIK_SPACE) && (!simon->IsSitting()))
 	{
 		simon->SetState(SIMON_STATE_JUMP);
 	}
-	else if (IsKeyDown(DIK_RIGHT)) {
-		simon->SetState(SIMON_STATE_WALKING_RIGHT);
-	}
+	
+	
 	else if (IsKeyDown(DIK_LEFT)) {
 		simon->SetState(SIMON_STATE_WALKING_LEFT);
 	}
-	
+	else if (IsKeyDown(DIK_RIGHT)) {
+		simon->SetState(SIMON_STATE_WALKING_RIGHT);
+	}
 	else if (IsKeyDown(DIK_DOWN)) {
 		simon->SetState(SIMON_STATE_SIT);
 	}
 	else {
 		simon->SetState(SIMON_STATE_IDLE);
 	}
+	
 }
 
 /*
@@ -206,15 +206,29 @@ void Update(DWORD dt)
 
 	vector<LPGAMEOBJECT> coObjects;
 	Control();
-	for (int i = 1; i < objects.size(); i++)
+
+	for (int i = 1; i < objects.size() + items.size(); i++)
 	{
-		coObjects.push_back(objects[i]);
+		if (i < objects.size())
+		{
+			coObjects.push_back(objects[i]);
+
+		}
+		else 
+			coObjects.push_back(items[i- objects.size()]);
 	}
 	simon->whip->Update(dt, objects);
 	for (int i = 0; i < objects.size(); i++)
 	{
 		if (objects[i]->die == true)
-		{
+		{	
+			if (objects[i]->haveItem)
+			{
+				Items *item = new Items();
+				item->SetPosition(objects[i]->x, objects[i]->y);
+				item->CreateItem();
+				items.push_back(item);
+			}
 			//objects[i]->Update(dt, &coObjects);
 			objects.erase(objects.begin() + i);
 		}
@@ -224,9 +238,23 @@ void Update(DWORD dt)
 		}
 	}
 
+	for (int i = 0; i < items.size(); i++)
+	{
+		if (items[i]->die == true)
+		{
+			items.erase(items.begin() + i);
+		}else
+			items[i]->Update(dt, &coObjects);
+	}
 	//simon->Update(dt, &coObjects);
-
-	if (simon->x >= 320)
+	
+	if (simon->GetX() < 10) {
+		simon->SetPosition(10, simon->GetY());
+	}
+	else if (simon->GetX() >= 1460) {
+		simon->SetPosition(1460, simon->GetY());
+	}
+	if (simon->GetX() >= 320 && simon->GetX() < 1200)
 	{
 		game->SetCamPos(simon->x - 320, 0);
 	}
@@ -254,13 +282,16 @@ void Render()
 		d3ddv->ColorFill(bb, NULL, BACKGROUND_COLOR);
 
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
-		//tilemap->Draw(game->GetCamPos());
+		tilemap->Draw(game->GetCamPos());
 
 		for (int i = 1; i < objects.size(); i++)
 			objects[i]->Render();
-	
+		for (int i = 0; i < items.size(); i++)
+		{
+			items[i]->Render();
+		}
 		simon->Render();
-	
+		
 		spriteHandler->End();
 		d3ddv->EndScene();
 	}

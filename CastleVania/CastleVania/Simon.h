@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "Brick.h"
 #include "Whip.h"
+#include "Items.h"
 #define SIMON_WALKING_SPEED		0.15f 
 //0.1f
 #define SIMON_JUMP_SPEED_Y		0.5f
@@ -17,7 +18,7 @@
 #define SIMON_STATE_SIT				500
 #define SIMON_STATE_ATTACK          600
 #define SIMON_STATE_SITATTACK		700
-//#define SIMON_STATE_JUMPATTACK      800
+#define SIMON_STATE_EFFECT			800
 
 #define SIMON_ANI_IDLE_RIGHT		0
 #define SIMON_ANI_IDLE_LEFT			1
@@ -25,7 +26,7 @@
 #define SIMON_ANI_WALKING_LEFT		3
 #define SIMON_ANI_ATTACK			4
 #define SIMON_ANI_SITATTACK			5
-//#define SIMON_ANI_JUMPATTACK        6
+#define SIMON_ANI_EFFECT			6	
 
 #define SIMON_ANI_DIE				8
 
@@ -34,6 +35,7 @@
 #define SIMON_BBOX_HEIGHT 63 
 
 #define SIMON_UNTOUCHABLE_TIME 5000
+
 
 
 
@@ -61,8 +63,7 @@ public:
 		nx = 1;
 		untouchable = 0;
 		whip = new Whip();
-		whip->AddAnimation("whip_lv1");
-		
+		//whip->AddAnimation("whip_lv1");
 	}
 	bool isTouchGround;
 
@@ -81,10 +82,9 @@ public:
 	//danh
 	bool IsAttacking() { return (state == SIMON_STATE_ATTACK && !this->isComplete); }
 	bool IsSitAttacking() { return (state == SIMON_STATE_SITATTACK && !this->isComplete); }
-	//bool IsJumpAttacking() { return (state == SIMON_STATE_JUMPATTACK && !this->isComplete); }
-
+	bool IsEffectItem() { return(state == SIMON_STATE_EFFECT && !this->isComplete); }
 
 	void Sit() { isSitting = true; }
-	void reset();
+	//void reset();
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 };

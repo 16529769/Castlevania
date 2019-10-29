@@ -132,7 +132,7 @@
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="ItemHeart.cpp" />
+    <ClCompile Include="Items.cpp" />
     <ClCompile Include="KeyboardEvent.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Simon.cpp" />
@@ -147,7 +147,7 @@
     <ClInclude Include="Brick.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
-    <ClInclude Include="ItemHeart.h" />
+    <ClInclude Include="Items.h" />
     <ClInclude Include="KeyboardEvent.h" />
     <ClInclude Include="Simon.h" />
     <ClInclude Include="Sprites.h" />

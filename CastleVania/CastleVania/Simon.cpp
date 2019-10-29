@@ -76,7 +76,6 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				x += min_tx * dx + nx * 0.4f;
 				y += min_ty * dy + ny * 0.4f;
 
-				
 			}
 			else if (dynamic_cast<Torch *>(e->obj))
 			{	
@@ -90,9 +89,21 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						vy = 0;
 				}			
 			}
-
-			
+			if (dynamic_cast<Items *>(e->obj))
+			{
+				if (e->obj->state == ITEM_WHIP)
+				{
+					whip->LevelUp();	
+					SetState(SIMON_STATE_EFFECT);
+					
+				}
+				e->obj->die = true;
+				
+			}
 		}
+
+
+
 	}
 
 	// clean up collision events
@@ -132,29 +143,11 @@ void Simon::Render()
 	 {
 		 ani = "simon_ani_idle";
 	 }
-	/*else if (state == SIMON_STATE_JUMPATTACK)
-	{
-		ani = "simon_ani_jumpattack";
-		this->whip->SetState(1);
-	}*/
-
-	/*else
-		if (vx == 0)
-		{
-			if (nx > 0) ani = "simon_ani_idle";
-			else ani = "simon_ani_idle";
-		}
-		else if (vx > 0)
-		{
-			ani = "simon_ani_walking";
-			nx = 1;
-		}
-		else
-		{
-			ani = "simon_ani_walking";
-			nx = -1;
-		}*/
-
+	else if (state == SIMON_STATE_EFFECT)
+	 {
+		 ani = "simon_ani_effect";
+	 }
+	
 
 	int alpha = 255;
 	if (untouchable) alpha = 128;
@@ -172,15 +165,6 @@ void Simon::Render()
 		whip->SetPosition(this->x - 90, this->y + 15);
 		whip->Render();
 	}
-
-
-	/*if (IsJumpAttacking())
-	{
-		whip->Setnx(this->nx);
-		whip->SetPosition(this->x - 90, this->y + 15);
-		whip->Render();
-	}*/
-
 
 	animations[ani]->Render(nx, x, y, alpha);
 
@@ -232,11 +216,12 @@ void Simon::SetState(int state)
 		//isAttacking = true;
 		vx = 0;
 		break;
-
-	//case SIMON_STATE_JUMPATTACK:
-	//	//vy = -SIMON_JUMP_SPEED_Y;
-	//	vx = 0;
-	//	break;
+	case SIMON_STATE_EFFECT:
+		isSitting = false;
+		isJumping = false;
+		isAttacking = false;
+		vx = 0;
+		break;
 	}
 	
 	
@@ -245,17 +230,17 @@ void Simon::SetState(int state)
 
 void Simon::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	left = x;
+	left = x+10;
 	top = y;
-	right = x + SIMON_BBOX_WIDTH;
-	bottom = y + SIMON_BBOX_HEIGHT;
+	right = x + 55;
+	bottom = y + SIMON_BBOX_HEIGHT ;
 	
 }
 
-void Simon::reset()
-{
-	animations[ani]->ResetCurrentFrame();
-}
+//void Simon::reset()
+//{
+//	animations[ani]->ResetCurrentFrame();
+//}
 
 
 

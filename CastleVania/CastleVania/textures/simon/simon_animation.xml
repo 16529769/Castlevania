@@ -30,6 +30,12 @@
         <frame spriteID="Simon_18" />
          <frame spriteID="Simon_18" />
     </Animation>
+    <Animation ID="simon_ani_effect" defaultTime="100">
+        <frame spriteID="Simon_25" />
+        <frame spriteID="Simon_26" />
+        <frame spriteID="Simon_27" />
+         <frame spriteID="Simon_28" />
+    </Animation>
 
     
 

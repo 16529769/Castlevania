@@ -4,7 +4,17 @@
         <frame spriteID="WHIP_2" time="100"/>
         <frame spriteID="WHIP_3" time="100"/>
         <frame spriteID="WHIP_3" time="100"/>
-    
     </Animation>
-
+    <Animation ID="whip_lv2" defaultTime="100">
+        <frame spriteID="WHIP_4" time="100"/>
+        <frame spriteID="WHIP_5" time="100"/>
+        <frame spriteID="WHIP_6" time="100"/>
+        <frame spriteID="WHIP_6" time="100"/>
+    </Animation>
+	<Animation ID="whip_lv3" defaultTime="100">
+        <frame spriteID="WHIP_7" time="100"/>                     
+        <frame spriteID="WHIP_11" time="100"/>
+        <frame spriteID="WHIP_15" time="100"/>
+        <frame spriteID="WHIP_15" time="100"/>
+    </Animation>
 </Animations>

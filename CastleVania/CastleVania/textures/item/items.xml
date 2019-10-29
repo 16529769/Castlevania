@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TextureAtlas imagePath="item.png" width="376" height="74">
+    <sprite n="item_heart_small" x="0" y="0" w="16" h="16"/>
+    <sprite n="item_heart_big" x="16" y="0" w="24" h="20"/>
+    <sprite n="item_whip" x="130" y="0" w="32" h="32"/>
+    <sprite n="item_knife" x="160" y="0" w="35" h="18"/>
+</TextureAtlas>

@@ -57,7 +57,7 @@
     <ClCompile Include="Torch.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
-    <ClCompile Include="ItemHeart.cpp">
+    <ClCompile Include="Items.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
   </ItemGroup>
@@ -95,7 +95,7 @@
     <ClInclude Include="Torch.h">
       <Filter>Objects</Filter>
     </ClInclude>
-    <ClInclude Include="ItemHeart.h">
+    <ClInclude Include="Items.h">
       <Filter>Objects</Filter>
     </ClInclude>
   </ItemGroup>

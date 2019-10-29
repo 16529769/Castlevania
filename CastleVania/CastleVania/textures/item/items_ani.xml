@@ -1,0 +1,11 @@
+<Animations name="item">
+    <Animation ID="item_heart" defaultTime="100">
+        <frame spriteID="item_heart_big" />   
+    </Animation>
+    <Animation ID="item_whip" defaultTime="100">
+        <frame spriteID="item_whip" />   
+    </Animation>
+    <Animation ID="item_knife" defaultTime="100">
+        <frame spriteID="item_knife" />   
+    </Animation>
+</Animations>

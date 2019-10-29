@@ -51,6 +51,7 @@ public:
 	int state;
 
 	bool die = false;
+	bool haveItem = false;
 
 	string id;
 
