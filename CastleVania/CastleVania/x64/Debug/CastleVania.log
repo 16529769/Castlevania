@@ -1,16 +1,10 @@
-﻿  Items.cpp
-  Simon.cpp
-c:\users\administrator\desktop\clone 4\castlevania\castlevania\castlevania\simon.h(76): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
-c:\users\administrator\desktop\clone 4\castlevania\castlevania\castlevania\simon.h(77): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
-  Whip.cpp
-  main.cpp
-c:\users\administrator\desktop\clone 4\castlevania\castlevania\castlevania\simon.h(76): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
-c:\users\administrator\desktop\clone 4\castlevania\castlevania\castlevania\simon.h(77): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
+﻿  main.cpp
+c:\users\administrator\desktop\1111\castlevania\castlevania\castlevania\simon.h(82): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
+c:\users\administrator\desktop\1111\castlevania\castlevania\castlevania\simon.h(83): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
   c:\program files (x86)\microsoft directx sdk (june 2010)\include\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
-c:\users\administrator\desktop\clone 4\castlevania\castlevania\castlevania\main.cpp(123): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\administrator\desktop\clone 4\castlevania\castlevania\castlevania\main.cpp(131): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\administrator\desktop\clone 4\castlevania\castlevania\castlevania\main.cpp(252): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\administrator\desktop\clone 4\castlevania\castlevania\castlevania\main.cpp(255): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\administrator\desktop\clone 4\castlevania\castlevania\castlevania\main.cpp(263): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-  Generating Code...
-  CastleVania.vcxproj -> C:\Users\Administrator\Desktop\clone 4\Castlevania\CastleVania\x64\Debug\CastleVania.exe
+c:\users\administrator\desktop\1111\castlevania\castlevania\castlevania\main.cpp(124): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\administrator\desktop\1111\castlevania\castlevania\castlevania\main.cpp(132): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\administrator\desktop\1111\castlevania\castlevania\castlevania\main.cpp(279): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\administrator\desktop\1111\castlevania\castlevania\castlevania\main.cpp(282): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\administrator\desktop\1111\castlevania\castlevania\castlevania\main.cpp(290): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  CastleVania.vcxproj -> C:\Users\Administrator\Desktop\1111\Castlevania\CastleVania\x64\Debug\CastleVania.exe

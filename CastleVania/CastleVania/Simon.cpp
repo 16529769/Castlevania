@@ -125,12 +125,12 @@ void Simon::Render()
 	else if (state == SIMON_STATE_JUMP) {
 		ani = "simon_ani_jumping";
 	}
-	else if (state == SIMON_STATE_ATTACK)
+	else if (state == SIMON_STATE_ATTACK || state == SIMON_STATE_KNIFE)
 	{
 		ani = "simon_ani_attacking";
 		this->whip->SetState(1);
 	}
-	else if (state == SIMON_STATE_SITATTACK)
+	else if (state == SIMON_STATE_SITATTACK|| state == SIMON_STATE_SITKNIFE )
 	{
 		ani = "simon_ani_sitattack";
 		this->whip->SetState(1);
@@ -165,6 +165,12 @@ void Simon::Render()
 		whip->SetPosition(this->x - 90, this->y + 15);
 		whip->Render();
 	}
+	if (IsKnife())
+	{
+		knife->Setnx(this->nx);
+		//knife->SetPosition(this->x, this->y);
+		//knife->Render();
+	}
 
 	animations[ani]->Render(nx, x, y, alpha);
 
@@ -180,16 +186,21 @@ void Simon::SetState(int state)
 	switch (state)
 	{
 	case SIMON_STATE_WALKING_RIGHT:
-		isSitting = false;
 		vx = SIMON_WALKING_SPEED;
+		isSitting = false;
+		isJumping = false;
+		isAttacking = false;
 		nx = 1;
 		break;
 	case SIMON_STATE_WALKING_LEFT:	
-		isSitting = false;
 		vx = -SIMON_WALKING_SPEED;
+		isSitting = false;
+		isJumping = false;
+		isAttacking = false;
 		nx = -1;
 		break;
 	case SIMON_STATE_JUMP:
+		vx = 0;
 		vy = -SIMON_JUMP_SPEED_Y;
 		isSitting = false;
 		isJumping = true;
@@ -197,10 +208,13 @@ void Simon::SetState(int state)
 		break;
 	case SIMON_STATE_SIT:	
 		isSitting = true;
+		isAttacking = false;
+		isJumping = false;
 		break;
 	case SIMON_STATE_IDLE:	
 		isSitting = false;
 		isJumping = false;
+		isAttacking = false;
 		vx = 0;
 		break;
 	case SIMON_STATE_DIE:
@@ -209,17 +223,34 @@ void Simon::SetState(int state)
 	
 	case SIMON_STATE_ATTACK:	
 		vx = 0;
-		isAttacking = false;
+		isAttacking = true;
+		isJumping = false;
+		isSitting = false;
 		break;
-
+	case SIMON_STATE_KNIFE:
+		vx = 0;
+		isAttacking = false;
+		this->knife->SetState(KNIFE_ATTACK);
+		knife->SetPosition(this->x, this->y);
+		//knife->Setnx(nx);
+		break;
 	case SIMON_STATE_SITATTACK:
-		//isAttacking = true;
+		isAttacking = false;
+		isJumping = false;
+		isSitting = true;
 		vx = 0;
 		break;
 	case SIMON_STATE_EFFECT:
 		isSitting = false;
 		isJumping = false;
 		isAttacking = false;
+		vx = 0;
+		break;
+	case SIMON_STATE_SITKNIFE:
+		isAttacking = false;
+		//isKnife = true;
+		//this->knife->SetState(KNIFE_ATTACK);
+		knife->SetPosition(this->x, this->y+30);
 		vx = 0;
 		break;
 	}

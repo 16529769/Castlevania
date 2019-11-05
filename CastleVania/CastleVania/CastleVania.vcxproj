@@ -134,6 +134,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Items.cpp" />
     <ClCompile Include="KeyboardEvent.cpp" />
+    <ClCompile Include="Knife.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Simon.cpp" />
     <ClCompile Include="Sprites.cpp" />
@@ -149,6 +150,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Items.h" />
     <ClInclude Include="KeyboardEvent.h" />
+    <ClInclude Include="Knife.h" />
     <ClInclude Include="Simon.h" />
     <ClInclude Include="Sprites.h" />
     <ClInclude Include="Texture.h" />

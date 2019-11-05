@@ -12,6 +12,7 @@
 #include "Whip.h"
 #include "Torch.h"
 #include "Items.h"
+#include "Knife.h"
 
 
 #define WINDOW_CLASS_NAME L"SampleWindow"
@@ -110,7 +111,7 @@ void LoadResources()
 	simon->AddAnimation("simon_ani_attacking"); //attack
 	simon->AddAnimation("simon_ani_sitattack"); //sit attack
 	simon->AddAnimation("simon_ani_effect"); //nhap nhay 
-
+	simon->knife->AddAnimation("item_knife");
 	simon->SetState(SIMON_STATE_IDLE);
 	simon->SetPosition(0, 0);
 
@@ -146,6 +147,10 @@ void Control() {
 	{
 		return;
 	}
+	if (simon->IsKnife())
+	{
+		return;
+	}
 	if (simon->IsSitAttacking())
 	{
 		return;
@@ -168,17 +173,31 @@ void Control() {
 			simon->SetState(SIMON_STATE_ATTACK);
 		}
 	}
+	else if (IsKeyPress(DIK_V))
+	{
+		simon->isKnife = true;
+		//simon->SetState(SIMON_STATE_KNIFE);
+		if (simon->GetState() == SIMON_STATE_SIT )
+		{
+			simon->SetState(SIMON_STATE_SITKNIFE);
+		}
+		else
+		{
+			simon->SetState(SIMON_STATE_KNIFE);
+		}
+	}
 	
 	else if (simon->IsJumping())
 	{
 		return;
 	}
-	
+	else if (IsKeyDown(DIK_DOWN)) {
+		simon->SetState(SIMON_STATE_SIT);
+	}
 	else if (IsKeyPress(DIK_SPACE) && (!simon->IsSitting()))
 	{
 		simon->SetState(SIMON_STATE_JUMP);
 	}
-	
 	
 	else if (IsKeyDown(DIK_LEFT)) {
 		simon->SetState(SIMON_STATE_WALKING_LEFT);
@@ -186,9 +205,7 @@ void Control() {
 	else if (IsKeyDown(DIK_RIGHT)) {
 		simon->SetState(SIMON_STATE_WALKING_RIGHT);
 	}
-	else if (IsKeyDown(DIK_DOWN)) {
-		simon->SetState(SIMON_STATE_SIT);
-	}
+	
 	else {
 		simon->SetState(SIMON_STATE_IDLE);
 	}
@@ -206,7 +223,16 @@ void Update(DWORD dt)
 
 	vector<LPGAMEOBJECT> coObjects;
 	Control();
+	if (simon->isKnife)
+	{
+		Knife *knife = new Knife();
+		knife->SetPosition(simon->x - 10, simon->y);
+		knife->SetPositionStart(simon->x - 10, simon->y);
+		knife->nx = simon->nx;
+		objects.push_back(knife);
+		simon->isKnife = false;
 
+	}
 	for (int i = 1; i < objects.size() + items.size(); i++)
 	{
 		if (i < objects.size())
@@ -218,6 +244,7 @@ void Update(DWORD dt)
 			coObjects.push_back(items[i- objects.size()]);
 	}
 	simon->whip->Update(dt, objects);
+	//simon->knife->Update(dt, objects);
 	for (int i = 0; i < objects.size(); i++)
 	{
 		if (objects[i]->die == true)

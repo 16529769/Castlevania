@@ -3,6 +3,7 @@
 #include "Brick.h"
 #include "Whip.h"
 #include "Items.h"
+#include "Knife.h"
 #define SIMON_WALKING_SPEED		0.15f 
 //0.1f
 #define SIMON_JUMP_SPEED_Y		0.5f
@@ -19,6 +20,8 @@
 #define SIMON_STATE_ATTACK          600
 #define SIMON_STATE_SITATTACK		700
 #define SIMON_STATE_EFFECT			800
+#define SIMON_STATE_KNIFE			900
+#define SIMON_STATE_SITKNIFE		1000
 
 #define SIMON_ANI_IDLE_RIGHT		0
 #define SIMON_ANI_IDLE_LEFT			1
@@ -48,7 +51,7 @@ class Simon : public GameObject
 	bool isSitting;
 	bool isAttacking;
 	bool isComplete;
-
+	
 	DWORD untouchable_start;
 
 	bool start = false;
@@ -58,15 +61,18 @@ class Simon : public GameObject
 
 public:
 	Whip *whip;
+	Knife *knife;
+
 	Simon() : GameObject()
 	{
 		nx = 1;
 		untouchable = 0;
 		whip = new Whip();
+		knife = new Knife();
 		//whip->AddAnimation("whip_lv1");
 	}
 	bool isTouchGround;
-
+	bool isKnife = false;
 	bool isDead = false;
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *colliable_objects = NULL);
 	virtual void Render();
@@ -83,6 +89,8 @@ public:
 	bool IsAttacking() { return (state == SIMON_STATE_ATTACK && !this->isComplete); }
 	bool IsSitAttacking() { return (state == SIMON_STATE_SITATTACK && !this->isComplete); }
 	bool IsEffectItem() { return(state == SIMON_STATE_EFFECT && !this->isComplete); }
+	bool IsKnife(){return (state == SIMON_STATE_KNIFE && !this->isComplete);
+	}
 
 	void Sit() { isSitting = true; }
 	//void reset();

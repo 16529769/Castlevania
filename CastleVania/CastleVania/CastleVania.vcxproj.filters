@@ -60,6 +60,9 @@
     <ClCompile Include="Items.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
+    <ClCompile Include="Knife.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -96,6 +99,9 @@
       <Filter>Objects</Filter>
     </ClInclude>
     <ClInclude Include="Items.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Knife.h">
       <Filter>Objects</Filter>
     </ClInclude>
   </ItemGroup>
